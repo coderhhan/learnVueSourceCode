@@ -1,0 +1,26 @@
+{
+  "name": "learnvuesourcecode",
+  "version": "1.0.0",
+  "description": "自己学习手写简易版的snabbdom，diff算法",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "snabbdom": "^2.1.0",
+    "webpack": "^5.24.3",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "scripts": {
+    "dev": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/coderhhan/learnVueSourceCode.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/coderhhan/learnVueSourceCode/issues"
+  },
+  "homepage": "https://github.com/coderhhan/learnVueSourceCode#readme"
+}
