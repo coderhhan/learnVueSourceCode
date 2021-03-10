@@ -1,7 +1,11 @@
 import vnode from './vnode'
 import createElement from './createElement'
+import patchVnode from './patchVnode'
+
 export default function (oldVnode,newVnode){
 
+  
+  
   //判断节点传入的旧节点是虚拟节点 还是 dom节点
   if(oldVnode.sel === '' || oldVnode.sel ===  undefined){
 
@@ -9,13 +13,12 @@ export default function (oldVnode,newVnode){
     oldVnode = vnode(oldVnode.tagName.toLowerCase(),{},[],undefined,oldVnode)
 
   }
-
-  if( newVnode.key&& oldVnode.key&& oldVnode.key === newVnode.key && oldVnode.sel === newVnode.sel) {
+  console.log('oldVnode',oldVnode)
+  if( oldVnode.key === newVnode.key && oldVnode.sel === newVnode.sel) {
     /**同一个节点 */
+    patchVnode(oldVnode,newVnode)
   }else{
-    
     // console.log(oldVnode,newVnode)
-    
     /**不是同一个节点 */
     var createDom =  createElement(newVnode)
     //将新创建的节点并且插入在就旧节点之前
@@ -25,6 +28,6 @@ export default function (oldVnode,newVnode){
       //删除旧几点
       oldVnode.elm.parentNode.removeChild(oldVnode.elm)
     }
-    console.log(createDom)
+     //console.log(createDom)
   }
 }

@@ -11,20 +11,24 @@ import patch from './mysnabbdom/patch'
  *  */
 const container = document.getElementById('container')
 var myvDom = h('ul',{},[
-  h('li',{},'测试1'),
-  h('li',{},'测试2'),
-  h('li',{},'测试3'),
-  h('li',{},[h('p',{},h('div',{},'hhh'))]),
+  h('li',{key:'C'},'C'),
+  h('li',{key:'B'},'B'),
+  h('li',{key:'A'},'A'),
 ])
 
 
-patch(container,myvDom)
+ patch(container,myvDom)
 
-var myvDom2 = h('ul',{},'特性t')
+ console.log(myvDom)
+var myvDom2 = h('ul',{},[
+  h('li',{key:'A'},'A'),
+  h('li',{key:'B'},'CC'),
+  h('li',{key:'C'},'CCC'),
+])
 
-// console.log(myvDom)
+
 const btn = document.getElementsByTagName('button')[0]
 btn.onclick= function(){
   console.log(11)
-  patch(myvDom,myvDom2)
+ patch(myvDom,myvDom2)
 }
