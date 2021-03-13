@@ -4,6 +4,8 @@ import patchVnode from './patchVnode'
   return firstNode.sel === secondNode.sel && firstNode.key  ===secondNode.key
 }
 export default function (parentElm,oldChildren,newChildren){
+  console.log(oldChildren)
+  console.log(newChildren)
   //子节点比较四种情况
   /**
    * 1.新前与旧前
@@ -30,11 +32,19 @@ export default function (parentElm,oldChildren,newChildren){
     let oldStartNode = oldChildren[0]
     //旧后节点
     let oldEndNode = oldChildren[oldEndIndex]
-
+    let keyMap =null
 
     while(newStartIndex <= newEndIndex && oldStartIndex <= oldEndIndex){
       console.log('循环中')
-      if(sameNode(newStartNode,oldStartNode)){
+      if(newStartNode === undefined || newStartNode === null){
+        newStartNode = newChildren[++newStartIndex]
+      }else if(newEndNode === undefined || newEndNode === null){
+        newEndNode = newChildren[--newEndIndex]
+      }else if(oldStartNode === undefined || oldStartNode === null){
+        oldStartNode = oldChildren[++oldStartIndex]
+      }else if(oldEndNode === undefined || oldEndNode === null){
+        oldEndNode = oldChildren[--oldEndNode]
+      }else if(sameNode(newStartNode,oldStartNode)){
         console.log('1新前与旧前')
           patchVnode(oldStartNode,newStartNode)
           oldStartNode = oldChildren[++oldStartIndex]
@@ -56,6 +66,51 @@ export default function (parentElm,oldChildren,newChildren){
           parentElm.insertBefore(oldEndNode.elm,oldStartNode.elm)
           oldEndNode = oldChildren[--oldEndIndex]
           newStartNode = newChildren[++newStartIndex]
+      }else{
+          //newStartNode = newChildren[++newStartIndex]
+           if(!keyMap){
+            keyMap = {}
+            for (let index = 0; index < oldChildren.length; index++) {
+              const key = oldChildren[index]&&oldChildren[index].key
+              if(key) {
+                keyMap[key]=index
+              }
+            }
+           }
+          
+          let indexOld = keyMap[newStartNode.key]
+          if(indexOld ==undefined){
+            console.log('bu同个节点')
+            let newDom = createElement(newStartNode)
+            parentElm.insertBefore(newDom,oldStartNode.elm)
+          }else{
+            const elemTomove = oldChildren[indexOld]
+            console.log('同个节点')
+            patchVnode(elemTomove,newStartNode)
+            oldChildren[indexOld] = undefined
+            parentElm.insertBefore(elemTomove.elm,oldStartNode.elm)
+          
+          }
+          newStartNode = newChildren[++newStartIndex]
+      }
+    }
+    
+    if(newStartIndex <= newEndIndex) {
+      console.log('新剩余')
+      for (let index=newStartIndex; index <= newEndIndex;index++) {
+        let createDom = createElement(newChildren[index])
+        const before =oldChildren[oldStartIndex]&& oldChildren[oldStartIndex].elm?oldChildren[oldStartIndex].elm:undefined
+        parentElm.insertBefore(createDom,before)
+        
+      }
+    }else if(oldStartIndex <= oldEndIndex)  {
+      console.log('旧剩余')
+      for (let index=oldStartIndex; index <= oldEndIndex;index++) {
+        if(oldChildren[index]){
+        parentElm.removeChild(oldChildren[index].elm)
+
+        }
+        
       }
     }
 }

@@ -6,19 +6,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+<!-- <style>
+  .triangle{
+    width: 0px;                           /*设置宽高为0，所以div的内容为空，从才能形成三角形尖角*/
+            height: 0px;
+            border-bottom: 200px solid #00a3af;
+            border-left: 200px solid transparent;    /*transparent 表示透明*/
+            border-right: 200px solid transparent;
+
+  }
+</style> -->
 <body>
+  <div class="triangle"></div>
   <button>改变内容</button>
   nihao
   <div id="container"></div>
 </body>
 <script>
-  var input= {
-    'a.b.a.c.dd':'abcdd',
-    'a.d.xx':'adxx',
-    'a.e':'ae',
-
+ function caculate(a){
+  return function(b){
+    return function(c){
+      return a+b
+    }
   }
-
+ }
+ console.log(caculate(2)(3)('+'))
   // var output= {
   //   a:{
   //     b:{
@@ -43,6 +55,7 @@
 //             if(!tempObj[arr[j]]){
 //               obj = tempObj[arr[j]] = {}
 //               console.log(tempObj)
+
 //             }else{
 //               obj = tempObj[arr[j]] 
 //             }

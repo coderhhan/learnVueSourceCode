@@ -9,7 +9,7 @@ export default function createElement(vnode){
   if(vnode.text !== '' &&(vnode.children == undefined || vnode.children.length === 0)){
     //有子节点含文本
      vDom.innerText = vnode.text
-    console.log(vnode)
+    // console.log(vnode)
     //  pra.parentNode.insertBefore(vDom,pra)
   }else if(Array.isArray(vnode.children) && vnode.children.length>0){
     //他内部的子节点需要用到递归创建节点
