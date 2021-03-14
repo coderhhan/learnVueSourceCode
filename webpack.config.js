@@ -2,7 +2,8 @@ const path = require('path');
 
 module.exports = {
   //入口
-  entry: './src/index.js',
+  // entry: './src/index-snabbodm.js', //diff算法js
+  entry: './src/index-dataUpdate.js', //数据响应js
   //出口
   output: {
     //虚拟打包路径
