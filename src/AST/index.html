@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+  // 指针思想
+  // var str = 'aaaaabbbbbbbcccccccccccddd'
+  // var i=0;
+  // var j=0
+  // var maxCount =0
+  // while(i < str.length){
+   
+  //   if(str[i] !== str[j]){
+  //     maxCount = j-i
+  //     console.log(str[i],'出现'+maxCount)
+  //     i=j
+  //   }
+  //   j++
+  // } 
+  // console.log(maxCount)
+  //递归思想
+  // //斐波拉数列  1 1 2 3 5 8 13
+  // var count =0
+  //   // 用缓存思想提高性能优化
+  //   var cache = {}
+  //   function feibo(n){
+  //     count++
+  //     if(cache.hasOwnProperty(n)){
+  //       return cache[n]
+  //     }
+  //     var result = (n === 0 || n===1)? 1:feibo(n-1)+feibo(n-2) 
+  //     cache[n]= result
+  //     return result
+  //   }
+  //  console.log(feibo(5)) 
+  //  console.log(count) //不用缓存执行十五次， 用缓存执行九次
+
+
+//   //数组扁平化
+//   var arr =[111,222,[22,33],44,[555,[999,10]]]
+
+//   function changeArr(arr){
+//     var newArr=[]
+//     for(let i of arr){
+//       if(Array.isArray(i)){
+//         newArr =newArr.concat(changeArr(i))
+//       }else{
+//         newArr.push(i)
+//       }
+//     }
+//     return newArr
+//   }
+//  console.log(changeArr(arr)) 
+
+var arr = [1,2,[3,[4,5],6],7,[8],9]
+
+// function ArrToObj(arr){
+//   var obj={
+//     children:[]
+//   }
+//   for(let value of arr) {
+//     if(Array.isArray(value)){
+//       var newObj =ArrToObj(value)
+//       obj.children.push(newObj)
+//     }else{
+//       obj.children.push({
+//         value:value
+//       })
+//     }
+//   }
+//   return obj
+// }
+// //递归次数远多于第一种，代码更精简
+// function ArrToObj(data){
+//   if(Array.isArray(data)){
+//     return {
+//       children:data.map(item=>ArrToObj(item))
+//     }
+//   }else{
+//     return {
+//       value:data
+//     }
+//   }
+// }
+// console.log(ArrToObj(arr))
+
+//利用栈结构解题
+var str = '22[3[a]4[1[b]2[c]]]'
+
+function formateStr(str){
+  var startIdx=0 //指针起始位置
+  var startStr =str[startIdx]
+  var restStr = str //剩余的字符串
+  var times = 0 //重复次数
+  var stackNum=[]
+  var stackStr=[]
+
+  while(startIdx < str.length){
+    if(/^\d+\[/.test(restStr)){
+      
+      //获取重复次数，推到stackNum中
+      times = restStr.match(/(^\d+)\[/)[1]
+      stackNum.push(times)
+      stackStr.push('')
+      //修改指针到[之后，略过[字符
+      startIdx += (times.length+1)
+      //修改剩余字符
+      restStr=str.substring(startIdx)
+    }else if(/^\w+\]/.test(restStr)){
+      //截取[]内的内容保存到stackStr中
+      var temp = restStr.match(/(^\w+)\]/)[1]
+      stackStr.push(temp)
+      startIdx += (temp.length+1)
+       //修改剩余字符
+      restStr=str.substring(startIdx)
+    }else{
+      //
+      console.log(str[startIdx],startIdx)
+      startIdx++
+    }
+  }
+  console.log(stackNum,stackStr)
+}
+
+formateStr(str)
+
+</script>
+
+</html>
