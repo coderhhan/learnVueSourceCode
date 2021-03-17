@@ -1,7 +1,9 @@
+
+import attrsParse from './attrsParse'
 export default function parse(templateStr){
   var index = 0 //指针
   var rest = templateStr
-  var startRegExp = /^\<([a-z]+[0-9]?)\>/ //匹配 <>开始标签
+  var startRegExp = /^\<([a-z]+[0-9]?)([^\<]+)?\>/ //匹配 < calss="" >开始标签   attrs可有可无
   var endRegExp = /^\<\/([a-z]+[0-9]?)\>/ //匹配 </>开始标签
   var wordRegExp = /^([^\<]+)\<\/([a-z]+[0-9]?)\>/  //匹配 文本内容去掉空行
   var stack1 = []  //标签栈
@@ -12,14 +14,16 @@ export default function parse(templateStr){
     rest = templateStr.substring(index)
     if(startRegExp.test(rest)){
       let tag =rest.match(startRegExp)[1]
+      let attrsStr =rest.match(startRegExp)[2]
+      let attrsLength = attrsStr? attrsStr.length :0
       stack1.push(tag)
-      stack2.push({tag,children:[],type:1})
-      console.log('开始标签',tag)
-      index += tag.length +2  //指针移动 匹配长度加<>的2个长度
+      stack2.push({tag,children:[],type:1,attrs:attrsParse(attrsStr)})
+      // console.log('开始标签',tag)
+      index += tag.length +2 +attrsLength //指针移动 匹配长度加<>的2个长度
     }else if(endRegExp.test(rest)){
       
       let temp2 =rest.match(endRegExp)[1]
-      console.log('结束标签',temp2,stack1[stack1.length-1])
+      // console.log('结束标签',temp2,stack1[stack1.length-1])
       if(temp2 === stack1[stack1.length-1]) {
         let tag = stack1.pop()
         let text = stack2.pop()
