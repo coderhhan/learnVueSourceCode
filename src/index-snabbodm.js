@@ -28,7 +28,7 @@ var myvDom2 = h('ul',{},[
   h('li',{key:'C'},'C'),
   h('li',{key:'bb'},'bb'),
   h('li',{key:'E'},'E'),
-  h('li',{key:'g'},'g'),
+  h('li',   {key:'g'},'g'),
 ])
 
 

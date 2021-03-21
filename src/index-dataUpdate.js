@@ -1,7 +1,7 @@
 
 import observe from './dataUpdate/observe'
 import Watcher from './dataUpdate/Watcher'
-
+import defineReactive from './dataUpdate/defineReactive'
 var data = {
   a:{
     m:{
@@ -15,12 +15,10 @@ var data = {
       c:222
     }
   },
-  f:[222,233,555,666]
+   f:[222,233,555,666]
 }
 observe(data)
-
-
 new Watcher(data,'a.m.n.h',(val)=>{
 console.log('改变了',val)
 })
-data.a.m.n.h = '2'
+data.a.m.n.h = '2111'

@@ -7,8 +7,39 @@
   <title>Document</title>
 </head>
 <body>
-  数据响应
+  vue
+  <div id="app">
+     {{a}}
+      <input type="text" v-model="a"/>
+      
+  </div>
+  <button id="btn">按钮++</button>
 </body>
 
 <script src="/xuni/bundle.js"></script>
+<script>
+ var vm = new Vue({
+    el:'#app',
+    data(){
+      return {
+        a:'22',
+        b:{
+          c:{
+            s:2222
+          }
+        }
+      }
+    },
+    watch:{
+      a:function(newVlaue){
+        console.log('watch新值',newVlaue)
+      }
+    }
+  })
+
+  var btn = document.getElementById('btn')
+  btn.onclick = function (){
+    vm._data.a++
+  }
+</script>
 </html>

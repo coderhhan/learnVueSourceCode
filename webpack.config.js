@@ -4,7 +4,8 @@ module.exports = {
   //入口
   // entry: './src/index-snabbodm.js', //diff算法js
   // entry: './src/index-dataUpdate.js', //数据响应js
-  entry: './src/index-abstractSyntaxTree.js', //数据响应js
+   //entry: './src/index-abstractSyntaxTree.js', //抽象语法树js
+   entry: './src/index-vue.js', //简单的vuejs
   //出口
   output: {
     //虚拟打包路径
